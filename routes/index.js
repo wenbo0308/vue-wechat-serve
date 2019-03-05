@@ -99,7 +99,7 @@ router.get('/api/v1/getMyFriend',async (req,res,next)=>{
 		return res.status(500).send({status:0,msg:JSON.stringify(err)});
 	}
 })
-router.get('api/v1/getFriendDtl',async (req,res,next) => {
+router.get('/api/v1/getFriendDtl',async (req,res,next) => {
 	let f_id = req.query.id;
 	try{
 		let dtl = await login_method.getFriendInfo(f_id);
