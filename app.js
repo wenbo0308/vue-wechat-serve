@@ -29,7 +29,7 @@ app.use(async (req,res,next)=>{
 	console.log('urlurl',url)
 	try{
 		console.log(url!='/v1/login'||url!= '/v1/register')
-		if(url=='/v1/register'||url== '/v1/login'){
+		if(url=='/api/v1/register'||url== '/api/v1/login'){
 			next();
 		}else{
 			if(req.headers['authorization']){

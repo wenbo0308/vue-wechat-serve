@@ -10,7 +10,7 @@ let jwt_method = new Jwt();
 router.get('/', function(req, res, next) {
   res.render('index', { title: 'Express' });
 });
-router.post('/v1/register',async (req,res,next) => {
+router.post('/api/v1/register',async (req,res,next) => {
 	let reqObj = req.body;
 	console.log(JSON.stringify(reqObj))
 	let resData = {status:0,msg:'',result:[]};
@@ -34,7 +34,7 @@ router.post('/v1/register',async (req,res,next) => {
 		return res.status(500).send(resData)
 	}
 });
-router.post('/v1/login',async (req,res,next) => {
+router.post('/api/v1/login',async (req,res,next) => {
 	let reqObj = req.body;
 	console.log(reqObj)
 	if(!reqObj.phone || !reqObj.pwd){
@@ -59,7 +59,7 @@ router.post('/v1/login',async (req,res,next) => {
 	}
 });
 
-router.post('/v1/add_friend',async (req,res,next)=>{
+router.post('/api/v1/add_friend',async (req,res,next)=>{
 	let reqObj = req.body;
 	console.log('reqreqreq',reqObj)
 	if(!reqObj.phone){
@@ -79,7 +79,7 @@ router.post('/v1/add_friend',async (req,res,next)=>{
 		return res.status(500).send({status:0,msg:JSON.stringify(err)})	
 	}
 });
-router.get('/v1/get_req_friend',async (req,res,next) => {
+router.get('/api/v1/get_req_friend',async (req,res,next) => {
 	let session_user = req.user_info.data;
 	try{
 		let list = await login_method.getReqFriend(session_user.user_id);
@@ -89,7 +89,7 @@ router.get('/v1/get_req_friend',async (req,res,next) => {
 		return res.status(500).send({status:0,msg:JSON.stringify(err)});
 	}
 })
-router.get('/v1/getMyFriend',async (req,res,next)=>{
+router.get('/api/v1/getMyFriend',async (req,res,next)=>{
 	let session_user = req.user_info.data;
 	try{
 		let list = await login_method.getMyFriend(session_user.user_id);
@@ -99,7 +99,7 @@ router.get('/v1/getMyFriend',async (req,res,next)=>{
 		return res.status(500).send({status:0,msg:JSON.stringify(err)});
 	}
 })
-router.get('/v1/getFriendDtl',async (req,res,next) => {
+router.get('api/v1/getFriendDtl',async (req,res,next) => {
 	let f_id = req.query.id;
 	try{
 		let dtl = await login_method.getFriendInfo(f_id);
@@ -110,7 +110,7 @@ router.get('/v1/getFriendDtl',async (req,res,next) => {
 		return res.status(500).send({status:0,msg:JSON.stringify(err)});	
 	}
 })
-router.get('/v1/getChatList',async (req,res,next)=>{
+router.get('/api/v1/getChatList',async (req,res,next)=>{
 	let session_user = req.user_info.data.user_id;
 	let o_id = req.query.id;
 	try{
@@ -122,7 +122,7 @@ router.get('/v1/getChatList',async (req,res,next)=>{
 		return res.status(500).send({status:0,msg:JSON.stringify(err)});
 	}
 });
-router.get('/v1/getRoomList',async (req,res,next)=>{
+router.get('/api/v1/getRoomList',async (req,res,next)=>{
 	let session_user = req.user_info.data.user_id;
 	try{
 		let list = await login_method.getRoomList(session_user);
@@ -132,7 +132,7 @@ router.get('/v1/getRoomList',async (req,res,next)=>{
 		return res.status(500).send({status:0,msg:JSON.stringify(err)});
 	}
 })
-router.get('/v1/delchat',async (req,res,next)=>{
+router.get('/api/v1/delchat',async (req,res,next)=>{
 	let r_id = req.query.rId;
 	let u_id = req.user_info.data.user_id;
 	if(!r_id){
@@ -146,7 +146,7 @@ router.get('/v1/delchat',async (req,res,next)=>{
 		return res.status(500).send({status:0,msg:JSON.stringify(err)});
 	}
 })
-router.get('/v1/getMyInfo',async (req,res,next)=>{
+router.get('/api/v1/getMyInfo',async (req,res,next)=>{
 	let session_user = req.user_info.data.user_id;
 	try{
 		let [info] = await login_method.getMyInfo(session_user);
