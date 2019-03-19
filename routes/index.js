@@ -20,6 +20,7 @@ router.post('/api/v1/register',async (req,res,next) => {
 	}
 	try{
 		let _exist = await login_method.isUserExist(reqObj.phone);
+		console.log('haha',_exist)
 		if(_exist){
 			resData.msg = '用户已存在';
 			return res.send(resData);

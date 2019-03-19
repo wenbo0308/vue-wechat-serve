@@ -8,7 +8,8 @@ class Login {
 	async isUserExist(_val){
 		let str = `select count(*) as count from vue_user where mobile=?`;
 		try{
-			let num = await sql.paramQuery(str,[_val]);
+			let [num] = await sql.paramQuery(str,[_val]);
+			console.log('hehe',num.count)
 			return num.count;
 		}catch(err){
 			throw err;

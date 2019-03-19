@@ -66,7 +66,7 @@ class Ws {
 			this.closeWs(webSocket,user.user_id);
 		})
 	}
-
+	
 	initWebsocket(server){
 		let wss = new WebSocketServer({server,clientTracking:true,
 			verifyClinet:this.socketVerify});
