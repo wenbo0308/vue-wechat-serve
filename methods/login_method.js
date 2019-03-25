@@ -9,7 +9,6 @@ class Login {
 		let str = `select count(*) as count from vue_user where mobile=?`;
 		try{
 			let [num] = await sql.paramQuery(str,[_val]);
-			console.log('hehe',num.count)
 			return num.count;
 		}catch(err){
 			throw err;
@@ -87,13 +86,20 @@ class Login {
 		}
 	}
 	async getReqFriend(_id){
-		console.log('ididid',_id)
-		let str = `select a.mobile as phone,a.nick_name as nickName,b.flag from vue_user as a join 
+		let str = `select a.id as id,a.mobile as phone,a.nick_name as nickName,b.flag from vue_user as a join 
 		(select p_id,flag from vue_friend_list where c_id = ?) as b on a.id = b.p_id`;
 		try{
 			let list = await sql.paramQuery(str,[_id]);
 			return list;
 		}catch(err){throw err;}
+	}
+	async getReqIcon(arr){
+		let str = `select icon from vue_user_dtl where u_id=?`;
+		for(let item of arr){
+			let [res] = await sql.paramQuery(str,[item.id]);
+			item.icon = res.icon;
+		}
+		return arr;
 	}
 	async getMyFriend(_id){
 		let str = `select a.nick_name as nickName,b.c_id as id,b.type from vue_user as a join (select c_id,type from vue_friend_list where 
@@ -105,7 +111,6 @@ class Login {
 				let [img] = await sql.paramQuery(str_1,[item.id]);
 				item.icon = img.icon;
 			}
-			console.log(list)
 			return list;
 		}catch(err){throw err}
 	}
@@ -124,7 +129,6 @@ class Login {
 		let str_2 = `update vue_chat_list set status=1 where id=?`;
 		try{
 			let [roomStat] = await sql.paramQuery(str,[id_1,id_2,id_1]);
-			console.log('haha',roomStat)
 			if(!roomStat){return []}
 			if(roomStat.isDel){
 				return [];
@@ -160,14 +164,12 @@ class Login {
 				for(let item of list){
 					if(item.p_id == _id){
 						let [name] = await sql.paramQuery(str_2,[item.c_id]);
-						console.log(name)
 						item.nickName = name.nickName;
 						item.icon = name.icon;
 						item.to_user = item.c_id;
 						item.status = 1
 					}else{
 						let [name] = await sql.paramQuery(str_2,[item.p_id]);
-						console.log(name)
 						item.nickName = name.nickName;
 						item.icon = name.icon;
 						item.to_user = item.p_id;
@@ -182,7 +184,6 @@ class Login {
 	async delRoomChat(_id,uid){
 		let currentTime = moment().format('YYYY-MM-DD HH:mm:ss');
 		let str = `update vue_chat_room set is_del=1,create_time=? where room_id=? and u_id=?`;
-		console.log(str)
 		try{
 			await sql.paramQuery(str,[currentTime,_id,uid]);
 		}catch(err){

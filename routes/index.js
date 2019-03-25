@@ -84,7 +84,8 @@ router.get('/api/v1/get_req_friend',async (req,res,next) => {
 	let session_user = req.user_info.data;
 	try{
 		let list = await login_method.getReqFriend(session_user.user_id);
-		return res.send({status:1,msg:'success',result:list});
+		let _arr = await login_method.getReqIcon(list);
+		return res.send({status:1,msg:'success',result:_arr});
 	}catch(err){
 		console.log(err)
 		return res.status(500).send({status:0,msg:JSON.stringify(err)});
@@ -151,6 +152,7 @@ router.get('/api/v1/getMyInfo',async (req,res,next)=>{
 	let session_user = req.user_info.data.user_id;
 	try{
 		let [info] = await login_method.getMyInfo(session_user);
+		info.uid = session_user;
 		return res.send({status:1,msg:'success',result:info});
 	}catch(err){
 		console.log(err)

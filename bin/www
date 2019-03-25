@@ -35,41 +35,7 @@ server.on('error', onError);
 server.on('listening', onListening);
 
 ws.initWebsocket(server);
-// const WebSocketServer = WebSocket.Server;
-// let socketVerify = (info) => {
-//   // console.log(JSON.stringify(info.req));
 
-//   return true;
-// }
-// const wss = new WebSocketServer({server,clientTracking:true,verifyClient:socketVerify});
-// let webSockets = {};
-// wss.on('connection',async (webSocket,req) => {
-//   console.log('reqreqreq',req.headers.cookie)
-//   console.log(`[SERVER] connection()`);
-//   if(req.headers.cookie){
-//     var user = await jwt_method.getUserId(req.headers.cookie);
-//   }
-//   webSockets[user.user_id] = webSocket;
-//   console.log(webSockets)
-//   webSocket.on('message',(msg) => {
-//     console.log(`server received: ${msg}`)
-//     let reqObj = JSON.parse(msg);
-//     let user_ws = webSockets[reqObj.u_id];
-//     if(user_ws){
-//       user_ws.send(reqObj.msg,(err) => { 
-//         if(err){console.log(`[server] error: ${err}`)}
-//         else{console.log('send success')}
-//       })
-//     }
-//     // ws.send(reqObj.msg,(err) => { 
-//     //  if(err){console.log(`[server] error: ${err}`)}
-//     //  else{console.log('send success')}
-//     // })
-    
-//   })
-  
-  
-// })
 /**
  * Normalize a port into a number, string, or false.
  */

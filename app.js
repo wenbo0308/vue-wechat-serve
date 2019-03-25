@@ -26,9 +26,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use(async (req,res,next)=>{
 	let url = req.originalUrl;
 	let reg = /\s/g;
-	console.log('urlurl',url)
 	try{
-		console.log(url!='/v1/login'||url!= '/v1/register')
 		if(url=='/api/v1/register'||url== '/api/v1/login'){
 			next();
 		}else{
