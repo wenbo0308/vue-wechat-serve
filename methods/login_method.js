@@ -115,7 +115,7 @@ class Login {
 		}catch(err){throw err}
 	}
 	async getFriendInfo(_id){
-		let str = `select nick_name as nickName,mobile as phone from vue_user where id=? or mobile=?`;
+		let str = `select a.nick_name as nickName,a.mobile as phone,b.icon as icon from vue_user as a join vue_user_dtl as b on a.id = b.u_id where a.id=? or a.mobile=?`;
 		try{
 			let arr = await sql.paramQuery(str,[_id,_id])
 			return arr;
