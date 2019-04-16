@@ -120,7 +120,7 @@ class Login {
 			let arr = await sql.paramQuery(str,[_id,_id])
 			return arr;
 		}catch(err){
-			throw err
+			throw err;
 		}
 	}
 	async getChatList(id_1,id_2){
